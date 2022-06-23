@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Jun 22, 2022 at 01:19 PM
+-- Generation Time: Jun 23, 2022 at 01:11 PM
 -- Server version: 10.4.24-MariaDB
 -- PHP Version: 8.1.6
 
@@ -30,7 +30,7 @@ SET time_zone = "+00:00";
 CREATE TABLE `attendance` (
   `id` int(11) NOT NULL,
   `employee_id` bigint(20) NOT NULL,
-  `date` datetime NOT NULL,
+  `date` date NOT NULL,
   `working_status` int(11) NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
@@ -40,18 +40,11 @@ CREATE TABLE `attendance` (
 --
 
 INSERT INTO `attendance` (`id`, `employee_id`, `date`, `working_status`, `created_at`) VALUES
-(1, 107, '2022-06-22 16:15:00', 1, '2022-06-22 10:15:23'),
-(2, 109, '2022-06-22 16:15:00', 1, '2022-06-22 10:15:23'),
-(3, 107, '2022-06-22 17:22:00', 1, '2022-06-22 10:22:24'),
-(4, 109, '2022-06-22 18:21:00', 1, '2022-06-22 10:22:24'),
-(5, 107, '2022-06-22 16:26:00', 1, '2022-06-22 10:26:17'),
-(6, 109, '2022-06-22 16:26:00', 1, '2022-06-22 10:26:17'),
-(7, 107, '2022-06-22 16:26:00', 1, '2022-06-22 10:27:01'),
-(8, 109, '2022-06-22 16:26:00', 1, '2022-06-22 10:27:01'),
-(9, 107, '2022-06-22 16:27:00', 1, '2022-06-22 10:27:43'),
-(10, 109, '2022-06-22 16:27:00', 1, '2022-06-22 10:27:43'),
-(11, 107, '2022-06-22 16:38:00', 1, '2022-06-22 10:38:04'),
-(12, 109, '2022-06-22 16:38:00', 1, '2022-06-22 10:38:04');
+(1, 107, '2022-06-22', 1, '2022-06-22 10:15:23'),
+(2, 109, '2022-06-22', 1, '2022-06-22 10:15:23'),
+(29, 107, '2022-06-23', 1, '2022-06-23 07:05:33'),
+(46, 109, '2022-06-23', 1, '2022-06-23 10:54:55'),
+(47, 110, '2022-06-23', 1, '2022-06-23 10:54:55');
 
 -- --------------------------------------------------------
 
@@ -78,7 +71,8 @@ CREATE TABLE `employees` (
 
 INSERT INTO `employees` (`employee_id`, `employee_name`, `designation`, `role`, `email`, `phone`, `salary`, `status`, `resignation_date`, `password`) VALUES
 (107, 'Aslam', 'SWE', 2, 'aslam@gmail.com', '01521202799', '40000', 0, '0000-00-00 00:00:00', '1234'),
-(109, 'Kismet', 'SWE', 1, 'kismet@gmail.com', '01793317617', '40000', 0, '0000-00-00 00:00:00', '1234');
+(109, 'Kismet', 'SWE', 1, 'kismet@gmail.com', '01793317617', '40000', 0, '0000-00-00 00:00:00', '1234'),
+(110, 'AAA', 'SWE', 2, 'aaa@gmail.com', '01521202799', '30000', 0, '0000-00-00 00:00:00', '1234');
 
 --
 -- Indexes for dumped tables
@@ -106,13 +100,13 @@ ALTER TABLE `employees`
 -- AUTO_INCREMENT for table `attendance`
 --
 ALTER TABLE `attendance`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=48;
 
 --
 -- AUTO_INCREMENT for table `employees`
 --
 ALTER TABLE `employees`
-  MODIFY `employee_id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=110;
+  MODIFY `employee_id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=111;
 
 --
 -- Constraints for dumped tables
