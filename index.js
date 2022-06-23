@@ -5,27 +5,40 @@ checkStatus = (e) => {
 }
 
 saveAllData = () => {
-    console.log("save all data")
-    var tableData = [];
-    $('#attendanceTable tr').each(function(row, tr) {
-        tableData[row]={
+    var presentTableData = []
+    var absentTableData = []
+
+    $('#presentTable tr').each(function(row, tr) {
+        presentTableData[row]={
             "employee_id" : $(tr).find('td:eq(0)').text(),
-            "date" : $(tr).find('td:eq(2) input[type="datetime-local"]').val(),
-            "working_status" : $(tr).find('td:eq(3) input[type="radio"]').val()
+            "date" : $(tr).find('td:eq(2) input[type="date"]').val(),
+            "working_status" : $(tr).find('td:eq(3) input[type="radio"]:checked').val()
         }
     });
-    tableData.shift();
+    presentTableData.shift()
+
+    console.log(presentTableData)
+
+    $('#absentTable tr').each(function(row, tr) {
+        absentTableData[row]={
+            "employee_id" : $(tr).find('td:eq(0)').text(),
+            "date" : $(tr).find('td:eq(2) input[type="date"]').val(),
+            "working_status" : $(tr).find('td:eq(3) input[type="radio"]:checked').val()
+        }
+    });
 
     $.ajax({
         url: 'save_attendance.php',
         type: 'post',
         data: 
         {
-           tableData: tableData,
+            presentTableData: presentTableData,
+            absentTableData: absentTableData,
         },
         dataType: 'json',
         success:function(response){
-            alert("Data saved successfully")
+            // alert("Data saved successfully")
+            location.reload();
         },
         error: function(){
             alert('error!');
