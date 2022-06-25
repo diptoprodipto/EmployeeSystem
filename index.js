@@ -17,8 +17,6 @@ saveAllData = () => {
     });
     presentTableData.shift()
 
-    console.log(presentTableData)
-
     $('#absentTable tr').each(function(row, tr) {
         absentTableData[row]={
             "employee_id" : $(tr).find('td:eq(0)').text(),
@@ -26,6 +24,10 @@ saveAllData = () => {
             "working_status" : $(tr).find('td:eq(3) input[type="radio"]:checked').val()
         }
     });
+
+    if (absentTableData.length !== 0 && !absentTableData[0].employee_id && !absentTableData[0].date) {
+        absentTableData.shift()
+    }
 
     $.ajax({
         url: 'save_attendance.php',
@@ -37,9 +39,7 @@ saveAllData = () => {
         },
         dataType: 'json',
         success:function(response){
-            // alert("Data saved successfully")
-       
-            console.log(response)
+            if (response.response == true) alert('Data saved successfully!')
         },
         error: function(){
             alert('error!');
@@ -70,8 +70,7 @@ saveSingleData = (e) => {
         },
         dataType: 'json',
         success:function(response){
-            console.log(response);
-            // location.reload();
+            if (response.response == true) alert('Data saved successfully!')
         },
         error: function(){
             alert('error!');

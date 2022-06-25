@@ -21,6 +21,7 @@ if (mysqli_num_rows($emp_res) == 0) {
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Attendance</title>
+    <script type="text/javascript" src="index.js"></script>
 </head>
 
 <body>
@@ -48,7 +49,6 @@ if (mysqli_num_rows($emp_res) == 0) {
                     if (mysqli_num_rows($emp_res) > 0) {
                         $i = 0;
                         while ($row = mysqli_fetch_assoc($emp_res)) {
-                            print_r($row);
                     ?>
                             <tr>
                                 <td class="id-value"><?php echo $row['employee_id']; ?></td>
@@ -108,7 +108,6 @@ if (mysqli_num_rows($emp_res) == 0) {
         </div>
 
     </div>
-    <script type="text/javascript" src="index.js"></script>
 </body>
 
 </html>

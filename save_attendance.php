@@ -37,10 +37,12 @@ if ($present_table_array || $absent_table_array) {
 
   if ($absent_table_array) {
     foreach ($absent_table_array as $data) {
-      $employee_id = $data['employee_id'];
-      $date = $data['date'];
-      $working_status = $data['working_status'];
-      $sql_queries .= "INSERT INTO `attendance`(`employee_id`, `date`, `working_status`) VALUES ('$employee_id','$date','$working_status');";
+      if ($data['working_status'] == "1") {
+        $employee_id = $data['employee_id'];
+        $date = $data['date'];
+        $working_status = $data['working_status'];
+        $sql_queries .= "INSERT INTO `attendance`(`employee_id`, `date`, `working_status`) VALUES ('$employee_id','$date','$working_status');";
+      }
     }
   }
 
@@ -51,7 +53,7 @@ mysqli_close($conn);
 
 header('Content-Type: application/json');
 $post_return['response'] = true;
-$post_return['data'] = "Operation Successful!!!";
+$post_return['data'] = "Successful";
 
 $final_response = json_encode($post_return);
 
