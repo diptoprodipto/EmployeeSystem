@@ -7,15 +7,9 @@ $date = date('Y-m-d');
 $sql_emp = "SELECT * FROM attendance a JOIN employees e ON a.employee_id=e.employee_id WHERE date='$date';";
 $emp_res = mysqli_query($conn, $sql_emp);
 if (mysqli_num_rows($emp_res) == 0) {
-    $absent_emp = mysqli_query($conn, 'SELECT * FROM employees');
+    $absent_emp = mysqli_query($conn, 'SELECT * FROM employees;');
 } else {
     $absent_emp = mysqli_query($conn, "SELECT * FROM employees e WHERE e.employee_id NOT IN (SELECT employee_id FROM attendance WHERE date='$date');");
-}
-
-if (isset($_GET['action']) && $_GET['action'] == 'savesingle') {
-    $employee_id = $_GET['eid'];
-    $res = mysqli_query($conn, "SELECT * FROM `attendance` WHERE `employee_id`='$employee_id' AND `date`='$date'");
-    print_r($res);
 }
 
 ?>
@@ -54,16 +48,17 @@ if (isset($_GET['action']) && $_GET['action'] == 'savesingle') {
                     if (mysqli_num_rows($emp_res) > 0) {
                         $i = 0;
                         while ($row = mysqli_fetch_assoc($emp_res)) {
+                            print_r($row);
                     ?>
                             <tr>
-                                <td><?php echo $row['employee_id']; ?></td>
-                                <td><?php echo $row['employee_name']; ?></td>
-                                <td><input type="date" id="current-date" name="current-date" value="<?php echo $date; ?>" /></td>
-                                <td>
+                                <td class="id-value"><?php echo $row['employee_id']; ?></td>
+                                <td class="name-value"><?php echo $row['employee_name']; ?></td>
+                                <td class="date-value"><input type="date" id="current-date" name="current-date" value="<?php echo $date; ?>" /></td>
+                                <td class="status-value">
                                     <input id="<?php echo "present" . $i ?>" type="radio" name="<?php echo "present-group" . $i; ?>" value="1" <?php echo ($row['working_status'] == "1" ? 'checked="checked"': ''); ?> />Present
                                     <input id="<?php echo "absent" . $i ?>" type="radio" name="<?php echo "present-group" . $i; ?>" value="0" <?php echo ($row['working_status'] == "0" ? 'checked="checked"': ''); ?> />Absent
                                 </td>
-                                <td><a class="btn btn-info" href="attendance.php?action=savesingle&eid=<?php echo $row['employee_id']; ?>">Save</a></td>
+                                <td class="button-value"><button onclick="saveSingleData(this)" class="btn btn-info">Save</button></td>
                             </tr>
                     <?php $i++;
                         }
@@ -91,14 +86,14 @@ if (isset($_GET['action']) && $_GET['action'] == 'savesingle') {
                         while ($row = mysqli_fetch_assoc($absent_emp)) {
                     ?>
                             <tr>
-                                <td><?php echo $row['employee_id']; ?></td>
-                                <td><?php echo $row['employee_name']; ?></td>
-                                <td><input type="date" id="current-date" name="current-date" value="<?php echo $date; ?>" /></td>
-                                <td>
+                                <td class="id-value"><?php echo $row['employee_id']; ?></td>
+                                <td class="name-value"><?php echo $row['employee_name']; ?></td>
+                                <td class="date-value"><input type="date" id="current-date" name="current-date" value="<?php echo $date; ?>" /></td>
+                                <td class="status-value">
                                     <input type="radio" name="<?php echo "absent-group" . $i; ?>" onclick="" value="1" />Present
                                     <input type="radio" name="<?php echo "absent-group" . $i; ?>" onclick="" value="0" checked="checked" />Absent
                                 </td>
-                                <td><a class="btn btn-info" href="attendance.php?action=savesingle&eid=<?php echo $row['employee_id']; ?>">Save</a></td>
+                                <td class="button-value"><button onclick="saveSingleData(this)" class="btn btn-info">Save</button></td>
                             </tr>
                     <?php $i++;
                         }

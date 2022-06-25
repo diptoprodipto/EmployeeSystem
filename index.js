@@ -38,11 +38,43 @@ saveAllData = () => {
         dataType: 'json',
         success:function(response){
             // alert("Data saved successfully")
-            location.reload();
+       
+            console.log(response)
         },
         error: function(){
             alert('error!');
         }
     });
 
+}
+
+saveSingleData = (e) => {
+    
+    var values = [];
+    
+    var id = $(e).closest("tr").find(".id-value").text();
+    var name = $(e).closest("tr").find(".name-value").text();
+    var date = $(e).closest("tr").find('td input[type="date"]').val();
+    var status = $(e).closest("tr").find('td:eq(3) input[type="radio"]:checked').val();
+    
+    values.push(id, name, date, status)
+
+    console.log(values)
+
+    $.ajax({
+        url: 'save_attendance.php',
+        type: 'post',
+        data: 
+        {
+            singleData: values,
+        },
+        dataType: 'json',
+        success:function(response){
+            console.log(response);
+            // location.reload();
+        },
+        error: function(){
+            alert('error!');
+        }
+    });
 }
